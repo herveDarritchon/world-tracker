@@ -127,15 +127,15 @@ You can preview the production build with `npm run preview`.
 ## Installation de Postgres
 
 ````bash
-kubectl run my-release-postgresql-client --rm --tty -i --restart='Never' --namespace nihongo-flash --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
---command -- psql --host my-release-postgresql -U postgres -d postgres -p 5432
+kubectl run world-tracker-postgres-postgresql-client --rm --tty -i --restart='Never' --namespace nihongo-flash --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+--command -- psql --host world-tracker-postgres-postgresql -U postgres -d postgres -p 5432
 ````
 
 ````bash
-helm install my-release oci://registry-1.docker.io/bitnamicharts/postgresql
+helm install world-tracker-postgres oci://registry-1.docker.io/bitnamicharts/postgresql
 Pulled: registry-1.docker.io/bitnamicharts/postgresql:16.2.2
 Digest: sha256:c606abf37a17ffd8a7db17accd07b3287f80f9eafab5539c1215cb4e148a2e57
-NAME: my-release
+NAME: world-tracker-postgres
 LAST DEPLOYED: Fri Nov 22 20:44:57 2024
 NAMESPACE: nihongo-flash
 STATUS: deployed
@@ -150,22 +150,22 @@ APP VERSION: 17.2.0
 
 PostgreSQL can be accessed via port 5432 on the following DNS names from within your cluster:
 
-    my-release-postgresql.nihongo-flash.svc.cluster.local - Read/Write connection
+    world-tracker-postgres-postgresql.nihongo-flash.svc.cluster.local - Read/Write connection
 
 To get the password for "postgres" run:
 
-    export POSTGRES_PASSWORD=$(kubectl get secret --namespace nihongo-flash my-release-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+    export POSTGRES_PASSWORD=$(kubectl get secret --namespace nihongo-flash world-tracker-postgres-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 
 To connect to your database run the following command:
 
-    kubectl run my-release-postgresql-client --rm --tty -i --restart='Never' --namespace nihongo-flash --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
-      --command -- psql --host my-release-postgresql -U postgres -d postgres -p 5432
+    kubectl run world-tracker-postgres-postgresql-client --rm --tty -i --restart='Never' --namespace nihongo-flash --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+      --command -- psql --host world-tracker-postgres-postgresql -U postgres -d postgres -p 5432
 
     > NOTE: If you access the container using bash, make sure that you execute "/opt/bitnami/scripts/postgresql/entrypoint.sh /bin/bash" in order to avoid the error "psql: local user with ID 1001} does not exist"
 
 To connect to your database from outside the cluster execute the following commands:
 
-    kubectl port-forward --namespace nihongo-flash svc/my-release-postgresql 5432:5432 &
+    kubectl port-forward --namespace nihongo-flash svc/world-tracker-postgres-postgresql 5432:5432 &
     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 
 WARNING: The configured password will be ignored on new installation in case when previous PostgreSQL release was deleted through the helm command. In that case, old PVC will have an old password, and setting it through helm won't take effect. Deleting persistent volumes (PVs) will solve the issue.
@@ -179,13 +179,13 @@ WARNING: There are "resources" sections in the chart not set. Using "resourcesPr
 ### Forward du port de Postgres pour le local
 
 ````bash
-kubectl port-forward svc/my-release-postgresql 5432:5432 &
+kubectl port-forward svc/world-tracker-postgres-postgresql 5432:5432 &
 ````
 
 ### Connexion à la base de données
 
 ````bash
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace world-tracker my-release-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace world-tracker world-tracker-postgres-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 ````
 
 ### DataSource
