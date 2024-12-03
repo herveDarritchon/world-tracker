@@ -5,6 +5,7 @@ import { worldTable } from '$lib/server/db/schema';
 import pkg from 'pg';
 import { eq } from 'drizzle-orm';
 import 'dotenv/config';
+import { neon } from '@neondatabase/serverless';
 
 const { Pool } = pkg;
 
@@ -12,6 +13,17 @@ const pool = new Pool({
 	connectionString: process.env.DATABASE_URL
 });
 const db = drizzle(pool);
+
+const connectionString: string = process.env.DATABASE_URL as string;
+const sql = neon(connectionString);
+
+export async function load() {
+	const response = await sql`SELECT version()`;
+	const { version } = response[0];
+	return {
+		version,
+	};
+}
 
 export async function POST(requestEvent: RequestEvent) {
 	try {
