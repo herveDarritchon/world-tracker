@@ -33,6 +33,7 @@ const handleCors: Handle = async ({ event, resolve }) => {
 	response.headers.set('Access-Control-Allow-Origin', '*'); // Remplacez '*' par des DNS spécifiques si nécessaire
 	response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 	response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+	response.headers.set('Access-Control-Allow-Credentials', 'true');
 
 	// Gérer les pré-requêtes OPTIONS
 	if (event.request.method === 'OPTIONS') {
