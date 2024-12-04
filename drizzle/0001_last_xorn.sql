@@ -1,0 +1,1 @@
+ALTER TABLE "world" ALTER COLUMN "id" SET DATA TYPE text;
