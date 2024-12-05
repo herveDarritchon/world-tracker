@@ -127,66 +127,100 @@ You can preview the production build with `npm run preview`.
 ## Installation de Postgres
 
 ````bash
-kubectl run world-tracker-postgres-postgresql-client --rm --tty -i --restart='Never' --namespace nihongo-flash --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+kubectl run world-tracker-postgres-postgresql-client --rm --tty -i --restart='Never' --namespace world-tracker --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
 --command -- psql --host world-tracker-postgres-postgresql -U postgres -d postgres -p 5432
 ````
 
 ````bash
-helm install world-tracker-postgres oci://registry-1.docker.io/bitnamicharts/postgresql
-Pulled: registry-1.docker.io/bitnamicharts/postgresql:16.2.2
-Digest: sha256:c606abf37a17ffd8a7db17accd07b3287f80f9eafab5539c1215cb4e148a2e57
-NAME: world-tracker-postgres
-LAST DEPLOYED: Fri Nov 22 20:44:57 2024
-NAMESPACE: nihongo-flash
+helm install world-tracker oci://registry-1.docker.io/bitnamicharts/postgresql
+Pulled: registry-1.docker.io/bitnamicharts/postgresql:16.2.5
+Digest: sha256:98507e46a6aedb61d6075295a3c5354866875f628daf7a61862329ab398b7b43
+NAME: world-tracker
+LAST DEPLOYED: Thu Dec  5 19:08:09 2024
+NAMESPACE: world-tracker
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
 CHART NAME: postgresql
-CHART VERSION: 16.2.2
+CHART VERSION: 16.2.5
 APP VERSION: 17.2.0
 
 ** Please be patient while the chart is being deployed **
 
 PostgreSQL can be accessed via port 5432 on the following DNS names from within your cluster:
 
-    world-tracker-postgres-postgresql.nihongo-flash.svc.cluster.local - Read/Write connection
+    world-tracker-postgresql.world-tracker.svc.cluster.local - Read/Write connection
 
 To get the password for "postgres" run:
 
-    export POSTGRES_PASSWORD=$(kubectl get secret --namespace nihongo-flash world-tracker-postgres-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+    export POSTGRES_PASSWORD=$(kubectl get secret --namespace world-tracker world-tracker-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 
 To connect to your database run the following command:
 
-    kubectl run world-tracker-postgres-postgresql-client --rm --tty -i --restart='Never' --namespace nihongo-flash --image docker.io/bitnami/postgresql:17.2.0-debian-12-r0 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
-      --command -- psql --host world-tracker-postgres-postgresql -U postgres -d postgres -p 5432
+    kubectl run world-tracker-postgresql-client --rm --tty -i --restart='Never' --namespace world-tracker --image docker.io/bitnami/postgresql:17.2.0-debian-12-r2 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+      --command -- psql --host world-tracker-postgresql -U postgres -d postgres -p 5432
 
     > NOTE: If you access the container using bash, make sure that you execute "/opt/bitnami/scripts/postgresql/entrypoint.sh /bin/bash" in order to avoid the error "psql: local user with ID 1001} does not exist"
 
 To connect to your database from outside the cluster execute the following commands:
 
-    kubectl port-forward --namespace nihongo-flash svc/world-tracker-postgres-postgresql 5432:5432 &
+    kubectl port-forward --namespace world-tracker svc/world-tracker-postgresql 5432:5432 &
     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 
 WARNING: The configured password will be ignored on new installation in case when previous PostgreSQL release was deleted through the helm command. In that case, old PVC will have an old password, and setting it through helm won't take effect. Deleting persistent volumes (PVs) will solve the issue.
 
 WARNING: There are "resources" sections in the chart not set. Using "resourcesPreset" is not recommended for production. For production installations, please set the following values according to your workload needs:
-- primary.resources
-- readReplicas.resources
-  +info https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+  - primary.resources
+  - readReplicas.resources
++info https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 ````
 
-### Forward du port de Postgres pour le local
+### Port Forward Postgres
+
+### Create
 
 ````bash
 kubectl port-forward svc/world-tracker-postgres-postgresql 5432:5432 &
 ````
 
-### Connexion à la base de données
+### List
+
+````bash
+ps -f | grep 'kubectl' | grep 'port-forward'
+````
+
+### Base de données
+
+#### Mot de passe
 
 ````bash
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace world-tracker world-tracker-postgres-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 ````
+#### Récupération du mot de passe
+
+````bash
+echo $POSTGRES_PASSWORD
+````
+
+#### Génération de la migration de la base de données
+
+````bash
+pnpm run db:generate
+````
+
+#### Exécution de la migration
+
+````bash
+pnpm run db:migrate
+````
+
+#### Population de la Base de données avec des data
+
+````bash
+pnpm run db:push
+````
+
 
 ### DataSource
 
@@ -203,4 +237,28 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace world-tracker world-tr
 ````text
 user: hervedarritchon
 password: acp4gTeDea#P63$Q
+````
+
+### List container helm
+
+````bash
+helm list -A -a
+````
+
+### Delete container helm
+
+````bash
+helm uninstall world-tracker
+````
+
+### List les persistents volumes
+
+````bash
+kubectl get pvc
+````
+
+### Delete persitent volume
+
+````bash
+kubectl delete pvc 'id-pvc'
 ````
