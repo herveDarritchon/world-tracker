@@ -1,29 +1,29 @@
 <script lang="ts">
-
-	class WorldsData {
-		private readonly _count: number;
-
-		get count(): number {
-			return this._count;
-		}
-
-		constructor(count: number) {
-			this._count = count;
-		}
-	}
+	import Datatable from './Datatable.svelte';
+	import type { WorldsData } from '$lib/models/WorldsData';
 
 	let { data }: { data: WorldsData } = $props();
+
 </script>
 
 <div class="container">
 
 	<h1>Welcome to "The One Ring" World Tracker</h1>
 
-	<div class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800 w-full max-w-md p-4 text-center">
-		<div class="header">
-			<p class="title">Worlds</p>
+	<div class="mb-2 w-full max-w-md p-2 text-center">
+		<div class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800">
+			<div class="header">
+				<p class="title">Worlds</p>
+			</div>
+			<p class="counter">{data.count}</p>
 		</div>
-		<p class="counter">{data.count }</p>
+	</div>
+
+	<div class="mt-2 w-full max-w-screen-lg p-2 text-center">
+		<div
+			class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800">
+			<Datatable data={data.worlds} />
+		</div>
 	</div>
 
 	<p class="footer">Visit <a
@@ -37,7 +37,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
     }
 
     h1 {
@@ -65,8 +64,8 @@
 
     .counter {
         font-size: 3rem;
-				font-weight: bold;
-				margin-bottom: 2rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
     }
 
     .footer {

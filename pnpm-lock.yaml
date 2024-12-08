@@ -72,6 +72,9 @@ importers:
       '@types/pg':
         specifier: ^8.11.10
         version: 8.11.10
+      '@vincjo/datatables':
+        specifier: ^2.2.0
+        version: 2.2.0(svelte@5.4.0)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
@@ -1342,6 +1345,11 @@ packages:
   '@typescript-eslint/visitor-keys@8.17.0':
     resolution: {integrity: sha512-1Hm7THLpO6ww5QU6H/Qp+AusUUl+z/CAm3cNZZ0jQvon9yicgO7Rwd+/WWRpMKLYV6p2UvdbR27c86rzCPpreg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@vincjo/datatables@2.2.0':
+    resolution: {integrity: sha512-I/U+SoXRU7sHdIgm48nFhBlWWc0brgxf3ZTFkt0rKu466wZNRXeaIUF8ZALM7unZyv5KYTm1hid62QvYqyF6fQ==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   '@vitest/expect@2.1.8':
     resolution: {integrity: sha512-8ytZ/fFHq2g4PJVAtDX57mayemKgDR6X3Oa2Foro+EygiOJHUXhCqBAAKQYYajZpFoIfvBCF1j6R6IYRSIUFuw==}
@@ -4170,6 +4178,10 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.17.0
       eslint-visitor-keys: 4.2.0
+
+  '@vincjo/datatables@2.2.0(svelte@5.4.0)':
+    dependencies:
+      svelte: 5.4.0
 
   '@vitest/expect@2.1.8':
     dependencies:
