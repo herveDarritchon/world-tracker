@@ -181,7 +181,7 @@ WARNING: There are "resources" sections in the chart not set. Using "resourcesPr
 ### Create
 
 ````bash
-kubectl port-forward svc/world-tracker-postgres-postgresql 5432:5432 &
+kubectl port-forward svc/world-tracker-postgresql 5432:5432 &
 ````
 
 ### List
