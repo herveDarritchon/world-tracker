@@ -3,7 +3,7 @@ import { encodeBase32LowerCase } from '@oslojs/encoding';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { worldTable } from '$lib/server/db/schema';
 import pkg from 'pg';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import 'dotenv/config';
 
 const { Pool } = pkg;
@@ -60,7 +60,7 @@ export async function POST(requestEvent: RequestEvent) {
 
 export async function GET() {
 	try {
-		const allWorlds = await db.select().from(worldTable);
+		const allWorlds = await db.select().from(worldTable).orderBy(desc(worldTable.createdAt));
 		return json(allWorlds);
 	} catch (error) {
 		console.error(error);
