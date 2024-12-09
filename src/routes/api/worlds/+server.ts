@@ -43,7 +43,8 @@ export async function POST(requestEvent: RequestEvent) {
 				.set({
 					foundryVersion: world.foundryVersion,
 					systemName: world.systemName,
-					systemVersion: world.systemVersion
+					systemVersion: world.systemVersion,
+					createdAt: new Date()
 				})
 				.where(eq(worldTable.worldKey, world.worldKey));
 		} else {

@@ -12,7 +12,6 @@
 
 	let { data }: { data: WorldData[] } = $props();
 
-	console.log("Data in Datatable:",data);
 	const handler = new DataHandler(data, { rowsPerPage: 10 });
 	const rows = handler.getRows();
 </script>
