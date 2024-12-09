@@ -26,18 +26,18 @@
 		<thead>
 		<tr>
 
-			<ThSort {handler} orderBy="foundry_version">Foundry Version</ThSort>
-			<ThSort {handler} orderBy="system_version">System Version</ThSort>
-			<ThSort {handler} orderBy="time_zone">Timezone</ThSort>
+			<ThSort {handler} orderBy="foundryVersion">Foundry Version</ThSort>
+			<ThSort {handler} orderBy="systemVersion">System Version</ThSort>
+			<ThSort {handler} orderBy="timezone">Timezone</ThSort>
 			<ThSort {handler} orderBy="language">Language</ThSort>
 			<ThSort {handler} orderBy="since">Since</ThSort>
 
 		</tr>
 		<tr>
 
-			<ThFilter {handler} filterBy="foundry_version" />
-			<ThFilter {handler} filterBy="system_version" />
-			<ThFilter {handler} filterBy="time_zone" />
+			<ThFilter {handler} filterBy="foundryVersion" />
+			<ThFilter {handler} filterBy="systemVersion" />
+			<ThFilter {handler} filterBy="timezone" />
 			<ThFilter {handler} filterBy="language" />
 			<ThFilter {handler} filterBy="since" />
 
