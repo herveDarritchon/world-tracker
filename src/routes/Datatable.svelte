@@ -9,11 +9,10 @@
 	import RowPerPage from '$lib/components/RowPerPage.svelte';
 	import RowCount from '$lib/components/RowCount.svelte';
 	import type { WorldData } from '$lib/models/WorldData';
-	import type { WorldsData } from '$lib/models/WorldsData';
 
 	let { data }: { data: WorldData[] } = $props();
 
-	const handler = new DataHandler(data.sort((a:WorldData,b:WorldData)=>new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()), { rowsPerPage: 10 });
+	const handler = new DataHandler(data, { rowsPerPage: 10 });
 	const rows = handler.getRows();
 </script>
 

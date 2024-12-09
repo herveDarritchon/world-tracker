@@ -43,7 +43,8 @@
 		acc[world.language] = (acc[world.language] || 0) + 1;
 		return acc;
 	}, {}))
-		.map(([language, count]) => new LanguageData(language, count, 'https://www.worldometers.info//img/flags/small/tn_' + language + '-flag.gif'));
+		.map(([language, count]) => new LanguageData(language, count, 'https://www.worldometers.info//img/flags/small/tn_' + language + '-flag.gif'))
+		.sort((a, b) => b.count - a.count);
 
 	let continents: ContinentData[] = Object.entries(data.worlds.reduce((acc: {
 		[key: string]: number
@@ -52,9 +53,10 @@
 		acc[continent] = (acc[continent] || 0) + 1;
 		return acc;
 	}, {}))
-		.map(([continent, count]) => new ContinentData(continent, count));
+		.map(([continent, count]) => new ContinentData(continent, count))
+		.sort((a, b) => b.count - a.count);
 
-	console.log('Languages:', languages);
+	let worlds = data.worlds.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
 </script>
 
@@ -103,7 +105,7 @@
 	<div class="mt-2 w-full max-w-screen-lg p-2 text-center">
 		<div
 			class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800">
-			<Datatable data={data.worlds} />
+			<Datatable data={worlds} />
 		</div>
 	</div>
 
