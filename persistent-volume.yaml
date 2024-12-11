@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: world-tracker-postgres-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "manual"
+  claimRef:
+    name: data-world-tracker-postgresql-pvc
+    namespace: world-tracker
+  hostPath:
+    path: "/Users/hervedarritchon/Workspace/Perso/Behaska/FoundryVTT/world-tracker/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-world-tracker-postgresql-pvc
+  namespace: world-tracker
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "manual"
+  volumeName: world-tracker-postgres-pv

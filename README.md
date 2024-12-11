@@ -132,19 +132,24 @@ kubectl run world-tracker-postgres-postgresql-client --rm --tty -i --restart='Ne
 ````
 
 ````bash
-helm install world-tracker oci://registry-1.docker.io/bitnamicharts/postgresql
-Pulled: registry-1.docker.io/bitnamicharts/postgresql:16.2.5
-Digest: sha256:98507e46a6aedb61d6075295a3c5354866875f628daf7a61862329ab398b7b43
+helm install world-tracker oci://registry-1.docker.io/bitnamicharts/postgresql --set persistence.existingClaim=data-world-tracker-postgresql-pvc 
+````
+
+````bash
+Pulled: registry-1.docker.io/bitnamicharts/postgresql:16.3.0
+Digest: sha256:9732d8a408949797aa939bba8061ba722997a109f5ed29b40be2fc3a2eaefbe6
 NAME: world-tracker
-LAST DEPLOYED: Thu Dec  5 19:08:09 2024
+LAST DEPLOYED: Wed Dec 11 16:16:04 2024
 NAMESPACE: world-tracker
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 NOTES:
 CHART NAME: postgresql
-CHART VERSION: 16.2.5
+CHART VERSION: 16.3.0
 APP VERSION: 17.2.0
+
+Did you know there are enterprise versions of the Bitnami catalog? For enhanced secure software supply chain features, unlimited pulls from Docker, LTS support, or application customization, see Bitnami Premium or Tanzu Application Catalog. See https://www.arrow.com/globalecs/na/vendors/bitnami for more information.
 
 ** Please be patient while the chart is being deployed **
 
@@ -165,7 +170,7 @@ To connect to your database run the following command:
 
 To connect to your database from outside the cluster execute the following commands:
 
-    kubectl port-forward --namespace world-tracker svc/world-tracker-postgresql 5432:5432 &
+    kubectl port-forward --namespace world-tracker svc/world-tracker-postgresql 5433:5432 &
     PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
 
 WARNING: The configured password will be ignored on new installation in case when previous PostgreSQL release was deleted through the helm command. In that case, old PVC will have an old password, and setting it through helm won't take effect. Deleting persistent volumes (PVs) will solve the issue.
@@ -181,7 +186,7 @@ WARNING: There are "resources" sections in the chart not set. Using "resourcesPr
 ### Create
 
 ````bash
-kubectl port-forward svc/world-tracker-postgresql 5432:5432 &
+kubectl port-forward --namespace world-tracker svc/world-tracker-postgresql 5433:5432 &
 ````
 
 ### List
@@ -251,7 +256,7 @@ helm list -A -a
 helm uninstall world-tracker
 ````
 
-### List les persistents volumes
+### List les persistent volumes
 
 ````bash
 kubectl get pvc
