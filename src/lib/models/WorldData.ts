@@ -11,8 +11,8 @@ export  class WorldData {
 		this.foundryVersion = foundryVersion;
 		this.systemName = systemName;
 		this.systemVersion = systemVersion;
-		this.timezone = timezone;
-		this.language = language;
+		this.timezone = timezone.toLowerCase();
+		this.language = language.toLowerCase();
 		this.createdAt = createdAt;
 		this.since = Math.floor((new Date().getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24));
 	}

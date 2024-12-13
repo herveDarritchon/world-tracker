@@ -8,7 +8,11 @@
 		count: number;
 
 		constructor(name: string, count: number) {
-			this.name = name;
+			if (name == 'etc') {
+				this.name = 'other';
+			} else {
+				this.name = name;
+			}
 			this.count = count;
 		}
 	}
@@ -23,10 +27,11 @@
 				'fr': 'https://www.worldometers.info//img/flags/small/tn_fr-flag.gif',
 				'en': 'https://www.worldometers.info//img/flags/small/tn_uk-flag.gif',
 				'de': 'https://www.worldometers.info//img/flags/small/tn_gm-flag.gif',
-				'pt-BR': 'https://www.worldometers.info//img/flags/small/tn_br-flag.gif',
+				'pt-br': 'https://www.worldometers.info//img/flags/small/tn_br-flag.gif',
 				'pt': 'https://www.worldometers.info//img/flags/small/tn_po-flag.gif',
 				'ru': 'https://www.worldometers.info//img/flags/small/tn_rs-flag.gif',
-				'es': 'https://www.worldometers.info//img/flags/small/tn_sp-flag.gif'
+				'es': 'https://www.worldometers.info//img/flags/small/tn_sp-flag.gif',
+				'la': '/Flag_of_NATO.png'
 			};
 
 			this.name = name;
@@ -179,10 +184,10 @@
         font-weight: bold;
         display: flex;
         justify-content: center;
-				text-align: center;
+        text-align: center;
     }
 
-		.card{
-				margin-right: 2rem;
-		}
+    .card {
+        margin-right: 2rem;
+    }
 </style>
