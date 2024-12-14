@@ -31,7 +31,8 @@
 				'pt': 'https://www.worldometers.info//img/flags/small/tn_po-flag.gif',
 				'ru': 'https://www.worldometers.info//img/flags/small/tn_rs-flag.gif',
 				'es': 'https://www.worldometers.info//img/flags/small/tn_sp-flag.gif',
-				'la': '/Flag_of_NATO.png'
+				'la': '/SPQR_flag.png',
+				'unknown': '/Flag_of_NATO.png'
 			};
 
 			this.name = name;
