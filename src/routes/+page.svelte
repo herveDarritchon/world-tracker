@@ -28,9 +28,11 @@
 				'en': 'https://www.worldometers.info//img/flags/small/tn_uk-flag.gif',
 				'de': 'https://www.worldometers.info//img/flags/small/tn_gm-flag.gif',
 				'pt-br': 'https://www.worldometers.info//img/flags/small/tn_br-flag.gif',
+				'pt-pt': 'https://www.worldometers.info//img/flags/small/tn_po-flag.gif',
 				'pt': 'https://www.worldometers.info//img/flags/small/tn_po-flag.gif',
 				'ru': 'https://www.worldometers.info//img/flags/small/tn_rs-flag.gif',
 				'es': 'https://www.worldometers.info//img/flags/small/tn_sp-flag.gif',
+				'zh-tw': 'https://www.worldometers.info/img/flags/small/tn_ch-flag.gif',
 				'la': '/SPQR_flag.png',
 				'unknown': '/Flag_of_NATO.png'
 			};

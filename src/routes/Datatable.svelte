@@ -25,6 +25,7 @@
 		<thead>
 		<tr>
 
+			<ThSort {handler} orderBy="systemName">System</ThSort>
 			<ThSort {handler} orderBy="foundryVersion">Foundry Version</ThSort>
 			<ThSort {handler} orderBy="systemVersion">System Version</ThSort>
 			<ThSort {handler} orderBy="timezone">Timezone</ThSort>
@@ -34,6 +35,7 @@
 		</tr>
 		<tr>
 
+			<ThFilter {handler} filterBy="systemName" />
 			<ThFilter {handler} filterBy="foundryVersion" />
 			<ThFilter {handler} filterBy="systemVersion" />
 			<ThFilter {handler} filterBy="timezone" />
@@ -46,6 +48,7 @@
 		{#each $rows as row}
 			<tr>
 
+				<td>{row.systemName}</td>
 				<td>{row.foundryVersion}</td>
 				<td>{row.systemVersion}</td>
 				<td>{row.timezone}</td>
